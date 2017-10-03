@@ -1,0 +1,57 @@
+function printMvn {
+	echo $2
+	sleep $1
+}
+
+echo "[INFO] Scanning for projects..."
+echo "[INFO] ------------------------------------------------------------------------"
+echo "[INFO] Reactor Build Order:"
+echo "[INFO]"
+printMvn 1 "[INFO] get-rid-of-your-stuff"
+printMvn 1 "[INFO] establish-your-foreign-hq"
+printMvn 1 "[INFO] find-a-london-flat"
+printMvn 1 "[INFO] say-bye"
+printMvn 1 "[INFO]"
+echo "[INFO] ------------------------------------------------------------------------
+[INFO] Building get-rid-of-your-stuff 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------"
+echo "[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ get-rid-of-your-stuff ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources."
+echo "[INFO]"
+printMvn 1 "[INFO] Copying 35 resources to craigslist"
+echo "[INFO]"
+printMvn 1 "[INFO] Copying 7 resources to hoarder friend"
+echo "[INFO]"
+printMvn 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ get-rid-of-your-stuff ---
+\n[INFO] Changes detected - recompiling the module!
+\n[INFO]
+\n[INFO] Compiling 50 personal items to /Users/tcheng/move-to-london/target/boxes"
+echo "[INFO]"
+printMvn 1 "[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ get-rid-of-your-stuff ---
+\n[INFO] No time to run tests."
+echo "[INFO]"
+printMvn 2 "[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ get-rid-of-your-stuff ---
+\n[INFO] Building jar: /Users/storage-unit/tcheng/move-to-london/target/all-my-stuff-1.0.0-SNAPSHOT.jar"
+echo "[INFO]"
+echo "[INFO] ------------------------------------------------------------------------
+[INFO] Building establish-your-foreign-hq 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------"
+printMvn 2 "[INFO]
+\n[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ establish-your-foreign-hq ---
+\n[INFO] Using 'UTF-8' encoding to copy filtered resources.
+\n[INFO]
+\n[INFO] Copying 5 resources to your spanish in-laws' home"
+echo "[INFO]"
+printMvn 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ establish-your-foreign-hq ---
+\n[INFO] Changes detected - recompiling the module!
+\n[INFO]
+\n[INFO] Compiling 100 cooked items to /Users/in-laws/target/dining-table"
+echo "[INFO]"
+printMvn 1 "[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ establish-your-foreign-hq ---
+\n[INFO] We'll test in prod."
+echo "[INFO]"
+printMvn 2 "[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ establish-your-foreign-hq ---
+\n[INFO] Building jar: /Users/in-laws/detached-cottage/tmp/target/mobile-workspace-1.0.0-SNAPSHOT.jar"
+
+#[INFO] Compiling 1000 thanks to /Users/in-laws/target/hospitality"
