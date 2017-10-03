@@ -1,9 +1,13 @@
 pipeline {
   agent any
   stages {
-    stage('Sell Your Stuff') {
+    stage('Get Rid of Your Stuff') {
       steps {
-        echo 'test'
+        echo 'List everything on craigslist'
+        sh 'sleep 1'
+        echo 'Sell as much as you can'
+        sh 'sleep 1'
+        echo 'Give what\'s left to your friends'
       }
     }
   }
