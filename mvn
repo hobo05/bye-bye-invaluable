@@ -28,13 +28,14 @@ function floatingMath {
 	echo $(printf "%.0f" $(echo "$1" | bc -l))
 }
 
- BAR='####################'   # this is full bar, mine is 20 chars
- SPACE='                    '
+barArray=("####################" "▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇" "====================" "********************")
+SPACE='                    '
 # for i in {1..20}; do
 maxChars=20
 secondPerLoop=.1
 
 function progressBar {
+	BAR=${barArray[$RANDOM % ${#barArray[@]} ]}
 	duration=$1
 	end=$(floatingMath "$duration/$secondPerLoop")
 	last=0
@@ -154,7 +155,9 @@ printProg 1 "[INFO] Copying 20 new friends"
 echo "[INFO]"
 printProg 1 "[INFO] Copying 300 unread confluence articles"
 echo "[INFO]"
-printProg 1 "[INFO] Copying 5,000 JIRA tickets completed"
+printProg 1 "[INFO] Copying 400 JIRA tickets completed"
+echo "[INFO]"
+printProg 1 "[INFO] Copying 5,000 lessons learned"
 echo "[INFO]"
 printMvn 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ establish-your-foreign-hq ---
 \n[INFO] Changes detected - recompiling the module!
