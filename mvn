@@ -1,6 +1,73 @@
+black='\E[30;40m'
+red='\E[31;40m'
+green='\E[32;40m'
+yellow='\E[33;40m'
+blue='\E[34;40m'
+magenta='\E[35;40m'
+cyan='\E[36;40m'
+white='\E[37;40m'
+
+cecho ()                     # Color-echo.
+                             # Argument $1 = message
+                             # Argument $2 = color
+{
+local default_msg="No message passed."
+                             # Doesn't really need to be a local variable.
+
+message=${1:-$default_msg}   # Defaults to default message.
+color=${2:-$black}           # Defaults to black, if not specified.
+
+  echo -e "$color"
+  echo "$message"
+  Reset                      # Reset to normal.
+
+  return
+} 
+
+function floatingMath {
+	echo $(printf "%.0f" $(echo "$1" | bc -l))
+}
+
+ BAR='####################'   # this is full bar, mine is 20 chars
+ SPACE='                    '
+# for i in {1..20}; do
+maxChars=20
+secondPerLoop=.1
+
+function progressBar {
+	duration=$1
+	end=$(floatingMath "$duration/$secondPerLoop")
+	last=0
+	for ((j=1; j<=$end; j++)); do
+		i=$(floatingMath "$j*$maxChars/$end")
+		if [ $i -gt $last ]; then
+
+			if [ $i -eq 20 ]; then
+				color=$green
+			elif [ $i -gt 5 ]; then
+				color=$yellow
+			else
+				color=$red
+			fi
+
+		    printf "\r$color[${BAR:0:$i}" # print $i chars of $BAR from 0 position
+		    printf "${SPACE:0:$maxChars-$i}] %.0f%%" $(echo "$i/$maxChars*100" | bc -l) # print $i chars of $BAR from 0 position
+		fi
+	    sleep .1
+	    last=$i
+	done
+	tput sgr0 # restore terminal colors
+	echo
+}
+
 function printMvn {
 	echo $2
 	sleep $1
+}
+
+function printProg {
+	echo $2
+	progressBar $1
 }
 
 echo "[INFO] Scanning for projects..."
@@ -19,11 +86,11 @@ echo "[INFO]
 [INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ get-rid-of-your-stuff ---
 [INFO] Using 'UTF-8' encoding to copy filtered resources."
 echo "[INFO]"
-printMvn 1 "[INFO] Copying 35 resources to craigslist"
+printProg 1.5 "[INFO] Copying 35 resources to craigslist"
 echo "[INFO]"
-printMvn 1 "[INFO] Copying 7 resources to hoarder friend"
+printProg 1 "[INFO] Copying 7 resources to hoarder friend"
 echo "[INFO]"
-printMvn 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ get-rid-of-your-stuff ---
+printProg 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ get-rid-of-your-stuff ---
 \n[INFO] Changes detected - recompiling the module!
 \n[INFO]
 \n[INFO] Compiling 50 personal items to /Users/tcheng/move-to-london/target/boxes"
@@ -37,13 +104,13 @@ echo "[INFO]"
 echo "[INFO] ------------------------------------------------------------------------
 [INFO] Building establish-your-foreign-hq 1.0.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------"
-printMvn 2 "[INFO]
+printProg 1 "[INFO]
 \n[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ establish-your-foreign-hq ---
 \n[INFO] Using 'UTF-8' encoding to copy filtered resources.
 \n[INFO]
 \n[INFO] Copying 5 resources to your spanish in-laws' home"
 echo "[INFO]"
-printMvn 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ establish-your-foreign-hq ---
+printProg 3 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ establish-your-foreign-hq ---
 \n[INFO] Changes detected - recompiling the module!
 \n[INFO]
 \n[INFO] Compiling 100 cooked items to /Users/in-laws/target/dining-table"
@@ -53,5 +120,66 @@ printMvn 1 "[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ establ
 echo "[INFO]"
 printMvn 2 "[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ establish-your-foreign-hq ---
 \n[INFO] Building jar: /Users/in-laws/detached-cottage/tmp/target/mobile-workspace-1.0.0-SNAPSHOT.jar"
-
-#[INFO] Compiling 1000 thanks to /Users/in-laws/target/hospitality"
+echo "[INFO]"
+echo "[INFO] ------------------------------------------------------------------------
+[INFO] Building find-a-london-flat 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------"
+echo "[INFO]"
+printProg 1 "[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ find-a-london-flat ---
+\n[INFO] Using 'UTF-8' encoding to copy filtered resources.
+\n[INFO]
+\n[INFO] Copying 1 month's financial resources to London hotel's bank account"
+echo "[INFO]"
+printProg 3 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ find-a-london-flat ---
+\n[INFO] Changes detected - recompiling the module!
+\n[INFO]
+\n[INFO] Compiling 10 viewings to /Applications/Rent-A-Flat/target/tcheng/viewings"
+echo "[INFO]"
+printMvn 1 "[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ find-a-london-flat ---
+\n[INFO] What's a test?"
+echo "[INFO]"
+printMvn 2 "[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ find-a-london-flat ---
+\n[INFO] Building jar: /Users/tcheng/London/target/new-london-flat-1.0.0-SNAPSHOT.jar"
+echo "[INFO]"
+echo "[INFO] ------------------------------------------------------------------------
+[INFO] Building say-bye 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------"
+echo "[INFO]"
+printProg 1 "[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ say-bye ---
+\n[INFO] Using 'UTF-8' encoding to copy filtered resources.
+\n[INFO]
+\n[INFO] Copying 10 new technology learned"
+echo "[INFO]"
+printProg 1 "[INFO] Copying 20 new friends"
+echo "[INFO]"
+printProg 1 "[INFO] Copying 300 unread confluence articles"
+echo "[INFO]"
+printProg 1 "[INFO] Copying 5,000 JIRA tickets completed"
+echo "[INFO]"
+printMvn 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ establish-your-foreign-hq ---
+\n[INFO] Changes detected - recompiling the module!
+\n[INFO]
+\n[INFO] Compiling 1,000 special thanks to /Users/invaluable/target/coworkers"
+echo "[INFO]"
+printMvn 1 "[INFO] Compiling Mike.java to /thanks/for/mentoring/me"
+printMvn 1 "[INFO] Compiling Michael.java to /thanks/for/trusting/my/abilities"
+printMvn 1 "[INFO] Compiling DZ.java to /thanks/for/testing/releasing/my/session-code"
+printMvn 1 "[INFO] Compiling Andy.java to /thanks/for/teaching/me/some/of/your/godly/skills"
+printMvn 1 "[INFO] Compiling John.java to /thanks/for/helping/a/ton/for/my/move"
+printMvn 1 "[INFO] Compiling James.java to /thanks/for/schooling/me/in/darts"
+printMvn 2 "[INFO] Compiling EveryoneIMissed.java to /thanks/for/growing/with/me/and/putting/up/with/me"
+echo "[INFO]"
+printMvn 3 "[INFO] ------------------------------------------------------------------------
+\n[INFO] Reactor Summary:
+\n[INFO]
+\n[INFO] get-rid-of-your-stuff .......................... SUCCESS 
+\n[INFO] establish-your-foreign-hq ...................... SUCCESS 
+\n[INFO] find-a-london-flat ............................. SUCCESS 
+\n[INFO] say-bye ........................................ SUCCESS 
+\n[INFO] ------------------------------------------------------------------------
+\n[INFO] BUILD SUCCESS
+\n[INFO] ------------------------------------------------------------------------
+\n[INFO] Total time: 37.096 s
+\n[INFO] Finished at: 2017-10-06T00:12:00-04:00
+\n[INFO] Final Memory: 44M/401M
+\n[INFO] ------------------------------------------------------------------------"
