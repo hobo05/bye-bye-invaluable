@@ -1,27 +1,28 @@
-black='\E[30;40m'
-red='\E[31;40m'
-green='\E[32;40m'
-yellow='\E[33;40m'
-blue='\E[34;40m'
-magenta='\E[35;40m'
-cyan='\E[36;40m'
-white='\E[37;40m'
 
-cecho ()                     # Color-echo.
-                             # Argument $1 = message
-                             # Argument $2 = color
-{
-local default_msg="No message passed."
-                             # Doesn't really need to be a local variable.
 
-message=${1:-$default_msg}   # Defaults to default message.
-color=${2:-$black}           # Defaults to black, if not specified.
+black='\e[30m'
+red='\e[31m'
+green='\e[32m'
+yellow='\e[33m'
+blue='\e[34m'
+magenta='\e[35m'
+cyan='\e[36m'
+white='\e[37m'
 
-  echo -e "$color"
-  echo "$message"
-  Reset                      # Reset to normal.
+cecho () {
+	# echo "first arg=$1"
+	# echo "second arg=$2"
+	# echo "third arg=$3"
 
-  return
+	message=$1
+	echoColor=$2
+	if [ -z "$2" ]; then
+	    echo "$message"
+	else
+		printf "$echoColor$message"
+	fi
+
+	tput sgr0 # restore terminal colors
 } 
 
 function floatingMath {
@@ -62,7 +63,10 @@ function progressBar {
 }
 
 function printMvn {
-	echo $2
+	# echo "first arg=$1"
+	# echo "second arg=$2"
+	# echo "third arg=$3"
+	cecho "$2" $3
 	sleep $1
 }
 
@@ -97,10 +101,10 @@ printProg 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ 
 \n[INFO] Compiling 50 personal items to /Users/tcheng/move-to-london/target/boxes"
 echo "[INFO]"
 printMvn 1 "[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ get-rid-of-your-stuff ---
-\n[INFO] No time to run tests."
+[INFO] No time to run tests."
 echo "[INFO]"
 printMvn 2 "[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ get-rid-of-your-stuff ---
-\n[INFO] Building jar: /Users/storage-unit/tcheng/move-to-london/target/all-my-stuff-1.0.0-SNAPSHOT.jar"
+[INFO] Building jar: /Users/storage-unit/tcheng/move-to-london/target/all-my-stuff-1.0.0-SNAPSHOT.jar"
 echo "[INFO]"
 echo "[INFO] ------------------------------------------------------------------------
 [INFO] Building establish-your-foreign-hq 1.0.0-SNAPSHOT
@@ -117,30 +121,56 @@ printProg 3 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ 
 \n[INFO] Compiling 100 cooked items to /Users/in-laws/target/dining-table"
 echo "[INFO]"
 printMvn 1 "[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ establish-your-foreign-hq ---
-\n[INFO] We'll test in prod."
+[INFO] We'll test in prod."
 echo "[INFO]"
 printMvn 2 "[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ establish-your-foreign-hq ---
-\n[INFO] Building jar: /Users/in-laws/detached-cottage/tmp/target/mobile-workspace-1.0.0-SNAPSHOT.jar"
+[INFO] Building jar: /Users/in-laws/detached-cottage/tmp/target/mobile-workspace-1.0.0-SNAPSHOT.jar"
 echo "[INFO]"
 echo "[INFO] ------------------------------------------------------------------------
 [INFO] Building find-a-london-flat 1.0.0-SNAPSHOT
 [INFO] ------------------------------------------------------------------------"
 echo "[INFO]"
-printProg 1 "[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ find-a-london-flat ---
-\n[INFO] Using 'UTF-8' encoding to copy filtered resources.
-\n[INFO]
-\n[INFO] Copying 1 month's financial resources to London hotel's bank account"
+printMvn 1 "[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ find-a-london-flat ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO]
+[INFO] Copying 1 arm to pay for London hotel
+[INFO]"
+printMvn 1 "[INFO] Copying 1 leg to pay for London hotel"
 echo "[INFO]"
-printProg 3 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ find-a-london-flat ---
-\n[INFO] Changes detected - recompiling the module!
-\n[INFO]
-\n[INFO] Compiling 10 viewings to /Applications/Rent-A-Flat/target/tcheng/viewings"
+printMvn 1 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ find-a-london-flat ---
+[INFO] Changes detected - recompiling the module!
+[INFO]
+[INFO] Compiling 5 viewing to /Applications/Rent-A-Flat/target/tcheng/viewings"
 echo "[INFO]"
+printMvn 1 "[ERROR] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR :
+[ERROR] -------------------------------------------------------------" $red
+printMvn 1 "[ERROR] /Users/tcheng/dev/projects/move-to-london/StepneyGreen.java:[23,25] error: 'safe neighborhood' expected
+[INFO] 1 error\n" $red
+printMvn 1 "[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 2.905 s
+[INFO] Finished at: 2017-07-014T09:53:08+01:00
+[INFO] Final Memory: 19M/981M
+[INFO] ------------------------------------------------------------------------"
+printMvn 1 "[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] Retry Building find-a-london-flat 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------"
+echo "[INFO]"
+printMvn 1 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ find-a-london-flat ---
+[INFO] Changes detected - recompiling the module!
+[INFO]
+[INFO] Compiling 1 viewing to /Applications/Rent-A-Flat/target/tcheng/viewings"
+echo "[INFO]"
+printProg 2 "[INFO] Signing lease for new london flat"
 printMvn 1 "[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ find-a-london-flat ---
-\n[INFO] What's a test?"
+[INFO] What's a test?"
 echo "[INFO]"
 printMvn 2 "[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ find-a-london-flat ---
-\n[INFO] Building jar: /Users/tcheng/London/target/new-london-flat-1.0.0-SNAPSHOT.jar"
+[INFO] Building jar: /Users/tcheng/London/target/new-london-flat-1.0.0-SNAPSHOT.jar"
 echo "[INFO]"
 echo "[INFO] ------------------------------------------------------------------------
 [INFO] Building say-bye 1.0.0-SNAPSHOT
@@ -160,29 +190,33 @@ echo "[INFO]"
 printProg 1 "[INFO] Copying 5,000 lessons learned"
 echo "[INFO]"
 printMvn 2 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ establish-your-foreign-hq ---
-\n[INFO] Changes detected - recompiling the module!
-\n[INFO]
-\n[INFO] Compiling 1,000 special thanks to /Users/invaluable/target/coworkers"
+[INFO] Changes detected - recompiling the module!
+[INFO]
+[INFO] Compiling 1,000 special thanks to /Users/invaluable/engineering/target/coworkers"
 echo "[INFO]"
 printMvn 1 "[INFO] Compiling Mike.java to /thanks/for/mentoring/me"
 printMvn 1 "[INFO] Compiling Michael.java to /thanks/for/trusting/my/abilities"
 printMvn 1 "[INFO] Compiling DZ.java to /thanks/for/testing/releasing/my/session-code"
 printMvn 1 "[INFO] Compiling Andy.java to /thanks/for/teaching/me/some/of/your/godly/skills"
+printMvn 1 "[INFO] Compiling Erik.W.java to /thanks/for/being/the/best/desk/buddy/ever"
 printMvn 1 "[INFO] Compiling John.java to /thanks/for/helping/a/ton/for/my/move"
 printMvn 1 "[INFO] Compiling James.java to /thanks/for/schooling/me/in/darts"
+printMvn 1 "[INFO] Compiling Karen.java to /thanks/for/teaching/me/to/cross/streets"
+printMvn 1 "[INFO] Compiling Cat.java to /obrigado/pela/carona"
+printMvn 1 "[INFO] Compiling Julie.java to /thanks/for/going/off/on/tangents/with/me"
 printMvn 2 "[INFO] Compiling EveryoneIMissed.java to /thanks/for/growing/with/me/and/putting/up/with/me"
 echo "[INFO]"
 printMvn 3 "[INFO] ------------------------------------------------------------------------
-\n[INFO] Reactor Summary:
-\n[INFO]
-\n[INFO] get-rid-of-your-stuff .......................... SUCCESS 
-\n[INFO] establish-your-foreign-hq ...................... SUCCESS 
-\n[INFO] find-a-london-flat ............................. SUCCESS 
-\n[INFO] say-bye ........................................ SUCCESS 
-\n[INFO] ------------------------------------------------------------------------
-\n[INFO] BUILD SUCCESS
-\n[INFO] ------------------------------------------------------------------------
-\n[INFO] Total time: 37.096 s
-\n[INFO] Finished at: 2017-10-06T00:12:00-04:00
-\n[INFO] Final Memory: 44M/401M
-\n[INFO] ------------------------------------------------------------------------"
+[INFO] Reactor Summary:
+[INFO]
+[INFO] get-rid-of-your-stuff .......................... SUCCESS 
+[INFO] establish-your-foreign-hq ...................... SUCCESS 
+[INFO] find-a-london-flat ............................. SUCCESS 
+[INFO] say-bye ........................................ SUCCESS 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 37.096 s
+[INFO] Finished at: 2017-10-06T00:12:00-04:00
+[INFO] Final Memory: 44M/401M
+[INFO] ------------------------------------------------------------------------"
