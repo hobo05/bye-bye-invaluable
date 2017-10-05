@@ -118,7 +118,7 @@ echo "[INFO]"
 printProg 3 "[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ establish-your-foreign-hq ---
 \n[INFO] Changes detected - recompiling the module!
 \n[INFO]
-\n[INFO] Compiling 100 cooked items to /Users/in-laws/target/dining-table"
+\n[INFO] Compiling 100 Spanish tapas to /Users/tcheng/target/belly"
 echo "[INFO]"
 printMvn 1 "[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ establish-your-foreign-hq ---
 [INFO] We'll test in prod."
@@ -204,6 +204,7 @@ printMvn 1 "[INFO] Compiling James.java to /thanks/for/schooling/me/in/darts"
 printMvn 1 "[INFO] Compiling Karen.java to /thanks/for/teaching/me/to/cross/streets"
 printMvn 1 "[INFO] Compiling Cat.java to /obrigado/pela/carona"
 printMvn 1 "[INFO] Compiling Julie.java to /thanks/for/going/off/on/tangents/with/me"
+printMvn 1 "[INFO] Compiling Nuria.java to /thanks/for/all/your/love/and/being/married/to/me"
 printMvn 2 "[INFO] Compiling EveryoneIMissed.java to /thanks/for/growing/with/me/and/putting/up/with/me"
 echo "[INFO]"
 printMvn 3 "[INFO] ------------------------------------------------------------------------
